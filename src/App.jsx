@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import TaskInputForm from './TaskInputForm';
 import TaskList from './TaskList';
-import { Container } from '@mui/material';
+import { Container, Button, Typography } from '@mui/material';
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -17,11 +17,25 @@ function App() {
     setTasks(updatedTasks);
   };
 
+  const deleteAllTasks = () => {
+    setTasks([]);
+  };
+
   return (
     <Container>
-      <h1>Mini Task Dashboard</h1>
+      <Typography variant="h4" gutterBottom>
+        Mini Task Dashboard
+      </Typography>
+      <Typography variant="subtitle1">
+        {tasks.length} pending tasks
+      </Typography>
       <TaskInputForm onAddTask={addTask} />
       <TaskList tasks={tasks} onDeleteTask={deleteTask} />
+      {tasks.length > 0 && (
+        <Button variant="contained" color="secondary" onClick={deleteAllTasks}>
+          Delete all
+        </Button>
+      )}
     </Container>
   );
 }
